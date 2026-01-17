@@ -6,7 +6,7 @@ function Player.new()
   local created = {}
   setmetatable(created, Player)
   created.score = 0
-  created.pos = Vec2.new{ x=64.0, y=90.0 }
+  created.pos = Vec2.new{ x=64.0, y=95.0 }
   created.vel = Vec2.new{ x=3.0, y=0.0 }
   return created
 end
@@ -17,7 +17,7 @@ function Player:handle_keys()
   if btn(2) then
     if has_flag(Vec2.new{
       x=self.pos.x,
-      y=self.pos.y + 1.0
+      y=self.pos.y + 2.0
     }, 0) then
       self.vel.y = - 7.0
     end
@@ -34,6 +34,7 @@ function Player:movement()
   }
   if has_flag(next, 0) then
     self.pos.x = next.x
+    self.pos.y = flr(self.pos.y)
     self.vel.y = 0
   else
     self.pos = next
@@ -43,6 +44,8 @@ end
 function Player:collission()
   if has_flag(self.pos, 1) then
     state = Lost
+  else
+    self.score += 1
   end
 end
 
@@ -53,7 +56,10 @@ function Player:update()
 end
 
 function Player:draw()
-  oval(self.pos.x, self.pos.y, self.pos.x + 5., self.pos.y - 10., 4)
-  print(self.pos, self.pos.x, 5.)
-  print(has_flag(self.pos, 0), self.pos.x, 17.)
+  oval(self.pos.x - 2.5, self.pos.y, self.pos.x + 2.5, self.pos.y - 10., 4)
+  print("score: " .. self.score, self.pos.x - 14, 2, 2)
+  print(has_flag(Vec2.new{
+    x=self.pos.x,
+    y=self.pos.y + 1.0
+  }, 0), self.pos.x - 14, 10, 2)
 end
