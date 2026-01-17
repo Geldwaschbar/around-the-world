@@ -44,6 +44,10 @@ end
 function Player:collission()
   if has_flag(self.pos, 1) then
     state = Lost
+    if player.score > high_score then
+      high_score = player.score
+      dset(0, high_score)
+    end
   else
     self.score += 1
   end
@@ -58,6 +62,7 @@ end
 function Player:draw()
   oval(self.pos.x - 2.5, self.pos.y, self.pos.x + 2.5, self.pos.y - 10., 4)
   print("score: " .. self.score, self.pos.x - 14, 2, 2)
+  print("record: " .. high_score, self.pos.x - 14, 10, 2)
   print(has_flag(Vec2.new{
     x=self.pos.x,
     y=self.pos.y + 1.0

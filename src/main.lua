@@ -9,6 +9,9 @@ function _init()
     -- change transparency color
     palt(15, true)
     palt(0, false)
+    -- save file
+    cartdata("geldwaschbaer_questpresso_0")
+    high_score = dget(0)
 end
 
 function _update()
