@@ -12,7 +12,7 @@ function _init()
     -- save file
     cartdata("geldwaschbaer_around-the-world_0")
     high_score = dget(0)
-    starting_hscore = high_score
+    starting_score = high_score
 end
 
 function _update()

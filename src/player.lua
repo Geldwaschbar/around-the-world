@@ -73,8 +73,10 @@ function Player:collission()
   -- blocks should also kill if you are inside them
   if has_flag(self.pos, 1) or has_flag(self.pos, 0) then
     state = Lost
-    if player.score > starting_hscore then
+    if player.score > high_score then
       sfx(2)
+      high_score = player.score
+      starting_score = high_score
       dset(0, high_score)
     else
       sfx(1)
@@ -85,9 +87,11 @@ function Player:collission()
       sfx(0)
     end
   end
-  if player.score > starting_hscore then
-      high_score = player.score
-      sfx(3)
+  if player.score > high_score then
+    high_score = player.score
+  end
+  if player.score > starting_score then
+    sfx(3)
   end
 end
 
