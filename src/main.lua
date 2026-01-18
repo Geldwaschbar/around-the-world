@@ -12,6 +12,7 @@ function _init()
     -- save file
     cartdata("geldwaschbaer_questpresso_0")
     high_score = dget(0)
+    starting_hscore = high_score
 end
 
 function _update()

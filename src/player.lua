@@ -31,6 +31,12 @@ function Player:state()
     else
         self.grounded = false
     end
+  if player.score > starting_hscore then
+      high_score = player.score
+      if state ~= Lost then
+        sfx(3)
+      end
+  end
 end
 
 function Player:handle_keys()
@@ -73,16 +79,15 @@ function Player:collission()
   -- blocks should also kill if you are inside them
   if has_flag(self.pos, 1) or has_flag(self.pos, 0) then
     state = Lost
-    if player.score > high_score then
-      high_score = player.score
-      dset(0, high_score)
+    if player.score > starting_hscore then
       sfx(2)
+      dset(0, high_score)
     else
       sfx(1)
     end
   else
     self.score += 1
-    if self.score % 200 == 0 then
+    if self.score % 1000 == 0 then
       sfx(0)
     end
   end
