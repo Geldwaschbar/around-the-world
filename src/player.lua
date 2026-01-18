@@ -6,9 +6,9 @@ function Player.new()
   local created = {}
   setmetatable(created, Player)
   created.score = 0
-  created.pos = Vec2.new{ x=0.0, y=118.0 }
+  created.level = flr(rnd(20)) % 4
+  created.pos = Vec2.new{ x=0.0, y=118.0 + created.level * 8 * 16 }
   created.vel = Vec2.new{ x=3.0, y=0.0 }
-  created.level = 0
   created.grounded = true
   return created
 end
@@ -31,12 +31,6 @@ function Player:state()
     else
         self.grounded = false
     end
-  if player.score > starting_hscore then
-      high_score = player.score
-      if state ~= Lost then
-        sfx(3)
-      end
-  end
 end
 
 function Player:handle_keys()
@@ -90,6 +84,10 @@ function Player:collission()
     if self.score % 1000 == 0 then
       sfx(0)
     end
+  end
+  if player.score > starting_hscore then
+      high_score = player.score
+      sfx(3)
   end
 end
 

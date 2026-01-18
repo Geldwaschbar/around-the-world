@@ -19,11 +19,12 @@ Start = State.new(
     end
   end,
   function ()
-    local msg = "add titlescreen here"
-    print(msg, 64 - #msg * 2, 64, 9)
+    sspr(0,8, 32,32, 32, 32, 64,64)
+    local msg = "aROUND tHE wORLD"
+    print(msg, 64 - #msg * 2, 20, 9)
 
     local msg = "press arrow keys to start!"
-    print(msg, 64 - #msg * 2, 96, 13)
+    print(msg, 64 - #msg * 2, 100, 13)
   end
 )
 
