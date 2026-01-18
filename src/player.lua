@@ -6,7 +6,7 @@ function Player.new()
   local created = {}
   setmetatable(created, Player)
   created.score = 0
-  created.pos = Vec2.new{ x=64.0, y=95.0 }
+  created.pos = Vec2.new{ x=0.0, y=118.0 }
   created.vel = Vec2.new{ x=3.0, y=0.0 }
   created.level = 0
   created.grounded = true
@@ -47,14 +47,14 @@ end
 function Player:movement()
   self.vel.y = self.vel.y + 0.5
 
-  x_next = self.pos.x + self.vel.x - 64.0
-  if x_next > 120 * 8 then
-    x_next = 64.0
-    self.level = flr(rnd(4))
-    y_next = clamp(0+self.level * 16 * 8, self.pos.y + self.vel.y + self.level * 16 * 8, 120 + self.level *16*8)
+  x_next = self.pos.x + self.vel.x
+  if x_next > 128 * 8 then
+    x_next = 0
+    prev_level = self.level
+    self.level = (self.level + flr(rnd(4))) % 4
+    y_next = clamp(0+self.level * 16 * 8,self.pos.y + self.vel.y + - prev_level * 16*8 +self.level * 16 * 8, 118 + self.level *16*8)
   else
-    x_next += 64
-    y_next = clamp(0+self.level * 16 * 8, player.pos.y + self.vel.y, 120 + self.level *16*8)
+    y_next = clamp(0+self.level * 16 * 8, player.pos.y + self.vel.y, 118 + self.level *16*8)
   end
   next = Vec2.new {
     x=x_next,
