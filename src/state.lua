@@ -33,8 +33,8 @@ Running = State.new(
   end,
   function ()
     draw()
-    print("score: " .. player.score, 0, 2, 2)
-    print("record: " .. high_score, 0, 10, 2)
+    print("score: " .. player.score, 0, 2, 12)
+    print("record: " .. high_score, 0, 10, 1)
   end
 )
 

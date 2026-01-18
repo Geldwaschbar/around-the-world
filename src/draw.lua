@@ -4,7 +4,8 @@ function draw()
     scale = 50
 
     -- draw planet base circle
-    circfill(planet_pos.x, planet_pos.y, planet_radius, 2)
+    circfill(planet_pos.x, planet_pos.y, planet_radius, 11)
+    circfill(planet_pos.x, planet_pos.y, planet_radius-10, 4)
 
     -- scan for blocks near player
     -- then draw them to the circle
@@ -17,14 +18,14 @@ function draw()
                 d_angle_1 = x/128
                 d_angle_2 = (x+1)/128
 
-                arc(128,128, 100+r_y, 0.375-d_angle_2, 0.375-d_angle_1, 5)
+                arc(128,128, 100+r_y, 0.375-d_angle_2, 0.375-d_angle_1, 13)
             end
         end
     end
     -- normalized player y pos
     local norm_y = (128-flr(player.pos.y))/128
     -- draw player
-    circfill(128+(100+norm_y*scale)*cos(0.375), 128+(100+ norm_y*scale)*sin(0.375), 2, 3)
+    circ(128+(100+norm_y*scale)*cos(0.375), 128+(100+ norm_y*scale)*sin(0.375), 3, 8)
 end
 
 -- from https://www.lexaloffle.com/bbs/?tid=29664
