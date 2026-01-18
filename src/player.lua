@@ -54,13 +54,13 @@ function Player:movement()
   self.vel.y = self.vel.y + 0.5
 
   x_next = self.pos.x + self.vel.x
-  if x_next > 128 * 8 then
+  if x_next > 120 * 8 then
     x_next = 0
     prev_level = self.level
     self.level = (self.level + flr(rnd(4))) % 4
     y_next = clamp(0+self.level * 16 * 8,self.pos.y + self.vel.y + - prev_level * 16*8 +self.level * 16 * 8, 118 + self.level *16*8)
   else
-    y_next = clamp(0+self.level * 16 * 8, player.pos.y + self.vel.y, 118 + self.level *16*8)
+    y_next = clamp(0+self.level * 16 * 8, self.pos.y + self.vel.y, 118 + self.level *16*8)
   end
   next = Vec2.new {
     x=x_next,

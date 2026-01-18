@@ -1,9 +1,14 @@
+
+colors ={[2]=13, [3]=8, [4]=1, [5]=3}
+sizes ={[4]=4, [5]=2}
 function draw()
+
     planet_radius = 100
     planet_pos = Vec2.new{x=128.0,y=128.0}
     scale = 50
 
     -- draw planet base circle
+    spr(6, 8, 0, 8, 8)
     circfill(planet_pos.x, planet_pos.y, planet_radius, 11)
     circfill(planet_pos.x, planet_pos.y, planet_radius-10, 4)
 
@@ -13,19 +18,28 @@ function draw()
     for x=-128,128 do
         for y=0+16*player.level,14+16*player.level do
             m = mget(flr(player.pos.x/8)+x,y)
-            if m == 2 then -- check for blocks, can also do this for spikes (red blocks)
+            if m == 2 or m == 3 or m == 4 or m == 5 then -- check for blocks, can also do this for spikes (red blocks)
                 r_y = flr((15-y+16*player.level)/16*50)
                 d_angle_1 = x/128
                 d_angle_2 = (x+1)/128
 
-                arc(128,128, 100+r_y, 0.375-d_angle_2, 0.375-d_angle_1, 13)
+                if m == 2 or m == 3 then
+                  arc(128,128, 100+r_y, 0.375-d_angle_2, 0.375-d_angle_1, colors[m])
+                elseif m == 4 then
+                  circfill(128+(100+r_y)*cos(0.375-d_angle_1), 128+(100+r_y)*sin(0.375-d_angle_1), sizes[m], colors[m])
+                elseif m == 5 then
+                  rectfill(128+(100+r_y)*cos(0.375-d_angle_1), 128+(100+r_y)*sin(0.375-d_angle_1),
+                      128+(100+r_y)*cos(0.375-d_angle_2), 128+(100+r_y)*sin(0.375-d_angle_2),
+                        colors[m])
+                end
             end
         end
     end
     -- normalized player y pos
     local norm_y = (128+ player.level * 16 * 8 - flr(player.pos.y))/128
     -- draw player
-    circ(128+(100+norm_y*scale)*cos(0.375), 128+(100+ norm_y*scale)*sin(0.375), 3, 8)
+    circfill(128+(100+norm_y*scale)*cos(0.375), 128+(100+ norm_y*scale)*sin(0.375), 3, 2)
+    circfill(128+(100+norm_y*scale)*cos(0.375), 128+(100+ norm_y*scale)*sin(0.375), 1, 10)
 end
 
 -- from https://www.lexaloffle.com/bbs/?tid=29664
