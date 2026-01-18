@@ -8,6 +8,7 @@ function Player.new()
   created.score = 0
   created.pos = Vec2.new{ x=64.0, y=95.0 }
   created.vel = Vec2.new{ x=3.0, y=0.0 }
+  created.level = 0
   created.grounded = true
   return created
 end
@@ -46,9 +47,18 @@ end
 function Player:movement()
   self.vel.y = self.vel.y + 0.5
 
+  x_next = self.pos.x + self.vel.x - 64.0
+  if x_next > 120 * 8 then
+    x_next = 64.0
+    self.level = flr(rnd(4))
+    y_next = clamp(0+self.level * 16 * 8, self.pos.y + self.vel.y + self.level * 16 * 8, 120 + self.level *16*8)
+  else
+    x_next += 64
+    y_next = clamp(0+self.level * 16 * 8, player.pos.y + self.vel.y, 120 + self.level *16*8)
+  end
   next = Vec2.new {
-    x=(self.pos.x + self.vel.x - 64.0) % (120 * 8) + 64.0,
-    y=clamp(0, self.pos.y + self.vel.y, 120)
+    x=x_next,
+    y=y_next
   }
   if has_flag(next, 0) then
     self.pos.x = next.x

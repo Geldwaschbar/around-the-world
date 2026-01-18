@@ -11,10 +11,10 @@ function draw()
     -- then draw them to the circle
     -- TODO: would be cool to fill the arcs for solid blocks
     for x=-128,128 do
-        for y=0,14 do
+        for y=0+16*player.level,14+16*player.level do
             m = mget(flr(player.pos.x/8)+x,y)
             if m == 2 then -- check for blocks, can also do this for spikes (red blocks)
-                r_y = flr((15-y)/16*50)
+                r_y = flr((15-y+16*player.level)/16*50)
                 d_angle_1 = x/128
                 d_angle_2 = (x+1)/128
 
@@ -23,7 +23,7 @@ function draw()
         end
     end
     -- normalized player y pos
-    local norm_y = (128-flr(player.pos.y))/128
+    local norm_y = (128+ player.level * 16 * 8 - flr(player.pos.y))/128
     -- draw player
     circ(128+(100+norm_y*scale)*cos(0.375), 128+(100+ norm_y*scale)*sin(0.375), 3, 8)
 end
